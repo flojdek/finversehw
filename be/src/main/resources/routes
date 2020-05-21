@@ -1,0 +1,10 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+GET     /data1          io.yisland.controller.Spec1Controller.handleGetData1
+
+PATCH   /data1          io.yisland.controller.Spec1Controller.handlePatchData1
+
+POST    /data1          io.yisland.controller.Spec1Controller.handlePostData1

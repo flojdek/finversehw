@@ -1,0 +1,62 @@
+== INFO ==
+
+Configuration is under:
+
+  ./src/main/resources/routes
+
+To manually clean the database so evolutions apply nicely, sometimes by mistake one can make a mess:
+
+  $ delete from play_evolutions; drop table spec1 ; drop table data1; drop domain column_data_type;
+
+To bring up postgres:
+
+  $ docker-compose up postgres
+
+To compile:
+
+  $ sbt compile
+
+To run the server:
+
+  $ sbt run
+
+To run the tests:
+
+  $ sbt test
+
+== DONE ==
+
+- I guess I got the gist of the task and done that. Pretty much we want to have dynamic table in SQL described by another table.
+  Not sure where this would be useful, but maybe on a project where users can create their own UI widgets and such and need to do this dynamically.
+  There would need to be much more functionality added to make this fully functional but the major feature works. I can add new field to spec1 and update data1 and it will handle it.
+
+- Added tests on service level, not on the controller levels. Had some problems with Play Framework. Purely technical issue solvable, but I don't want to waste time on this.
+  Pretty much personally I always do tests on service level, controller level only HTTP codes, and API testing externally like using Gatling or other framework.
+
+- API is a bit better than the spec describes. For example can GET data on many filters checked dynamically. Can PATCH data on many filters as well. Not just "name".
+
+== NOT DONE ==
+
+- I haven't done the auth part. Sorry. Started late and was struggling a bit with Slick (type-safe DB access library) when I figured out that what is asked for cannot be done there.
+  Pretty much Slick does not allow iterating arbitrary result from any table. You have to map it to a static type... hence I spent some time struggling with that and then went to use
+  a library that's is closer to JDBC level (Anorm) which is of course possible by iterating the cursor.
+
+- I did not fully understand the date part after the data table, so skipped that.
+
+- SSL.
+
+== HOW WOULD I DO IT ==
+
+- Auth part is pretty easy. Either use some JWT token library - the easiest way. Or just create an endpoint /token that would return a bespoke access token based on username/password provided.
+  That token would be a pointer token, pointing to user data in the DB so that would need to be validated each time with every request/endpoint as opposed JWT being more of a token by value.
+  JWT token could have been signed by servers private key upon generation and then pretty much verified everywhere along the way.
+
+- SSL... well https://www.playframework.com/documentation/2.8.x/ConfiguringHttps . Skipped this and focused more on the "juice" but I don't see a huge issue/problem with this.
+
+== COMMENT ==
+
+- For PRODUCTION grade I do not think this would take 4-5 hours max. Not sure what was exectly expected as a solution, but quite happy to discuss tomorrow! Maybe the author had in mind
+  NodeJS or Python solution which is probably quicker to write, but the code is not as type safe as using Scala - but unfortunately that is a bit longer to write due to typing :)
+
+Cheers,
+Tomasz

@@ -1,0 +1,10 @@
+version: "3.1"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: "xxx"
+      POSTGRES_PASSWORD: "xxx"
+      POSTGRES_DB: "fvdb"
+    ports:
+      - "5435:5432"
