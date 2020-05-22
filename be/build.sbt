@@ -12,7 +12,8 @@ lazy val commonSettings = Seq(
     evolutions,
     "org.playframework.anorm" %% "anorm" % "2.6.2",
     "org.postgresql" % "postgresql" % "42.2.9",
-    "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
+    "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test,
+    "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
   )
 )
 
