@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# So curl will not work out of the box with this, so flag -k or --insecure needs to be passed.
+# Obviously this is not a PROD setup, PROD setup would require getting proper certificates and some more plumbing.
+
+sbt "run -Dhttps.port=9443 -Dhttp.port=disabled"
